@@ -1,0 +1,3 @@
+# Use a static React and Vite stack on GitHub Pages
+
+For V1, we will implement the site using React, Vite, TypeScript, Tailwind CSS, and Framer Motion, and deploy it through GitHub Actions to GitHub Pages on the custom domain https://gyrfalcon.me/. We chose this because it minimizes operational complexity, keeps delivery fast, and still demonstrates modern frontend engineering quality aligned with hiring goals. We are explicitly prioritizing static reliability and speed-to-launch over server-side platform features for the initial release.
