@@ -1,42 +1,18 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-
-const SKILL_GROUPS = [
-  {
-    category: 'Frontend & Mobile',
-    items: ['React', 'React Native', 'TypeScript', 'Next.js', 'TailwindCSS', 'Angular', 'Vue.js', 'StencilJS', 'Framer Motion'],
-  },
-  {
-    category: 'Backend & APIs',
-    items: ['Node.js / Express', 'Supabase', 'REST APIs', 'GraphQL', 'PHP / Laravel', 'Edge Functions'],
-  },
-  {
-    category: 'Databases & Cloud',
-    items: ['PostgreSQL', 'MySQL', 'AWS S3', 'CloudFront', 'GitHub Actions', 'Azure Data Factory', 'Railway'],
-  },
-  {
-    category: 'Testing & Quality',
-    items: ['Jest', 'Cypress', 'Puppeteer', 'TDD', 'Karma', 'Jasmine'],
-  },
-  {
-    category: 'Tools & Process',
-    items: ['Figma', 'Linear', 'Jira', 'Git / GitHub', 'Agile / Scrum', 'Storybook'],
-  },
-]
+import { SKILL_GROUPS } from '../content/profile'
 
 type SkillGroupData = typeof SKILL_GROUPS[number]
 
 // Sub-component so each card can call useInView individually (hooks can't be inside .map())
-function SkillGroup({ group, index, isLast = false }: { group: SkillGroupData; index: number; isLast?: boolean }) {
+function SkillGroup({ group, index }: { group: SkillGroupData; index: number }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-5%' })
 
   return (
     <motion.div
       ref={ref}
-      className={`bg-[#0d0d0d] border border-white/[0.06] rounded-2xl p-6${
-        isLast ? ' md:col-span-2 lg:col-span-1' : ''
-      }`}
+      className={`bg-[#0d0d0d] border border-white/[0.06] rounded-2xl p-6`}
       initial={{ opacity: 0, y: 28 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.55, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
@@ -79,7 +55,7 @@ export default function Skills() {
             </span>
           </div>
           <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-bold text-[#f0f0f0] tracking-tight">
-            Stack snapshot
+            Technical skills
           </h2>
         </motion.div>
 
@@ -89,7 +65,6 @@ export default function Skills() {
               key={group.category}
               group={group}
               index={i}
-              isLast={i === SKILL_GROUPS.length - 1}
             />
           ))}
         </div>

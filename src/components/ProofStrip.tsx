@@ -1,12 +1,6 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-
-const PROOF_ITEMS = [
-  { value: '12+', label: 'Years Experience', sub: 'Startup to enterprise' },
-  { value: 'Senior / Lead', label: 'Engineer Level', sub: 'Frontend-first, full delivery' },
-  { value: 'React Native', label: 'Mobile', sub: '+ React · Next.js' },
-  { value: 'Node.js', label: 'Backend', sub: 'Pragmatic end-to-end' },
-]
+import { PROOF_ITEMS } from '../content/profile'
 
 export default function ProofStrip() {
   const ref = useRef(null)

@@ -2,16 +2,17 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 
 const LEADERSHIP_POINTS = [
-  'Led full product lifecycle at Natelly — from Figma prototype to cloud deployment, end-to-end solo ownership.',
-  'Mentored junior and mid-level engineers at EPAM Systems in ReactJS and modern web patterns.',
-  'Drove API migration strategy at Tactable — zero business disruption, continuous deployment throughout.',
-  'Cross-functional collaboration with design, product, and business stakeholders across every engagement.',
+  'Led end-to-end mobile product development at Natelly from product concept toward production.',
+  'Delivered ecommerce and marketplace integration work at Tactable across Shopify and Rakuten-related workflows.',
+  'Built reusable component architecture and internal tooling for insurance SaaS at Briza.',
+  'Mentored engineers and collaborated closely with product, design, and business stakeholders.',
+  'Comfortable owning ambiguous problems, breaking them into deliverable technical plans, and shipping incrementally.',
 ]
 
 const INFO_CARDS = [
   { label: 'Located in', value: 'Arlington, VA' },
   { label: 'Authorization', value: 'Green Card' },
-  { label: 'Focus', value: 'Frontend-first' },
+  { label: 'Sponsorship', value: 'Not required' },
 ]
 
 export default function About() {
@@ -43,14 +44,18 @@ export default function About() {
 
             <div className="space-y-4 text-[#aaa] text-base leading-relaxed mb-8">
               <p>
-                12+ years delivering scalable web and mobile applications across startups and enterprises —
-                from FinTech payment platforms in Georgia to cloud engineering firms in Canada and lead product
-                engineering in the US.
+                I'm a Senior Software Engineer based in Arlington, VA with 12+ years of experience
+                building production web and mobile applications across startups, SaaS companies,
+                fintech, insurance, ecommerce, and marketplace integrations.
               </p>
               <p>
-                I specialize in frontend-first delivery: building performant, user-facing experiences with
-                React, React Native, and Next.js, while bringing pragmatic Node.js backend capability to ship
-                end-to-end without handoffs.
+                My strongest area is frontend and product-facing engineering: React, React Native,
+                Next.js, TypeScript, design systems, performance, and accessible UI. I also bring
+                practical backend experience with Node.js, GraphQL, PostgreSQL, Supabase, AWS, and
+                API integrations, which helps me ship end-to-end without unnecessary handoffs.
+              </p>
+              <p className="text-[#666] text-sm">
+                Green Card · No sponsorship required
               </p>
             </div>
 

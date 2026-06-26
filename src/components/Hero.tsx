@@ -1,11 +1,10 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
-
-const CALENDLY = 'https://calendly.com/giga-songulashvili/30min'
+import { LINKS } from '../content/profile'
 
 const HEADLINE_WORDS = [
-  'I', 'build', 'mobile-first,', 'high-performance', 'product',
-  'experiences', 'end-to-end',
+  'Senior', 'Software', 'Engineer', 'building', 'high-performance',
+  'React,', 'React', 'Native,', 'and', 'TypeScript', 'products.',
 ]
 
 const wordVariants = {
@@ -95,7 +94,7 @@ export default function Hero() {
               variants={wordVariants}
               initial="hidden"
               animate="visible"
-              aria-label="I build mobile-first, high-performance product experiences end-to-end"
+              aria-label="Senior Software Engineer building high-performance React, React Native, and TypeScript products."
             >
               {HEADLINE_WORDS.map((word, i) => (
                 <motion.span
@@ -110,23 +109,35 @@ export default function Hero() {
 
             {/* Subline */}
             <motion.p
-              className="text-[#aaa] text-lg leading-relaxed mb-10 max-w-md"
+              className="text-[#aaa] text-lg leading-relaxed mb-4 max-w-md"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.85 }}
             >
-              Frontend excellence with pragmatic Node.js backend delivery.
+              Frontend-first engineer with 12+ years of experience delivering production web and
+              mobile applications, supported by pragmatic Node.js, GraphQL, PostgreSQL, Supabase,
+              and AWS backend delivery.
             </motion.p>
 
-            {/* CTAs */}
+            {/* Work authorization */}
+            <motion.p
+              className="text-[#666] text-sm mb-10"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 1.0 }}
+            >
+              Based in Arlington, VA · Green Card · No sponsorship required
+            </motion.p>
+
+            {/* Primary & secondary CTAs */}
             <motion.div
-              className="flex flex-wrap gap-3"
+              className="flex flex-wrap gap-3 mb-6"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.05 }}
             >
               <a
-                href={CALENDLY}
+                href={LINKS.calendly}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-2 px-6 py-3.5 bg-blue-500 hover:bg-blue-400 text-white font-medium rounded-xl transition-all duration-200 hover:scale-[1.03] hover:shadow-lg hover:shadow-blue-500/25"
@@ -140,16 +151,50 @@ export default function Hero() {
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                   strokeWidth={2.5}
+                  aria-hidden="true"
                 >
                   <path d="M7 17L17 7M17 7H7M17 7v10" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </a>
               <a
-                href="/resume.pdf"
-                download
+                href={LINKS.resume}
+                download={LINKS.resumeDownloadName}
                 className="inline-flex items-center gap-2 px-6 py-3.5 border border-white/10 hover:border-white/20 text-[#bbb] hover:text-white font-medium rounded-xl transition-all duration-200"
               >
-                Download Resume
+                Download Resume PDF
+              </a>
+            </motion.div>
+
+            {/* Tertiary text links */}
+            <motion.div
+              className="flex flex-wrap items-center gap-5 text-sm"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 1.2 }}
+            >
+              <a
+                href={LINKS.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#666] hover:text-blue-400 transition-colors"
+              >
+                LinkedIn
+              </a>
+              <span className="w-px h-3 bg-white/10" aria-hidden="true" />
+              <a
+                href={LINKS.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#666] hover:text-blue-400 transition-colors"
+              >
+                GitHub
+              </a>
+              <span className="w-px h-3 bg-white/10" aria-hidden="true" />
+              <a
+                href={`mailto:${LINKS.email}`}
+                className="text-[#666] hover:text-blue-400 transition-colors"
+              >
+                {LINKS.email}
               </a>
             </motion.div>
           </div>
@@ -167,10 +212,13 @@ export default function Hero() {
 
               {/* Image frame */}
               <div className="relative w-full h-full rounded-[2rem] overflow-hidden border border-white/[0.07] bg-[#0d0d0d]">
-                {/* Photo — drop /public/photo.jpg to populate */}
                 <img
                   src="/photo.jpg"
-                  alt="Giga Songulashvili"
+                  alt="Professional headshot of Giga Songulashvili, Senior Software Engineer"
+                  width="380"
+                  height="380"
+                  loading="eager"
+                  fetchPriority="high"
                   className="w-full h-full object-cover"
                   onError={(e) => {
                     ;(e.currentTarget as HTMLImageElement).style.display = 'none'

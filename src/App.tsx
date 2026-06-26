@@ -2,10 +2,13 @@ import { useEffect } from 'react'
 import Lenis from 'lenis'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
+import RecruiterQuickFacts from './components/RecruiterQuickFacts'
 import ProofStrip from './components/ProofStrip'
 import Work from './components/Work'
 import Skills from './components/Skills'
+import ExperienceSnapshot from './components/ExperienceSnapshot'
 import About from './components/About'
+import FAQ from './components/FAQ'
 import Footer from './components/Footer'
 
 export default function App() {
@@ -52,10 +55,13 @@ export default function App() {
       <Nav />
       <main id="main-content" tabIndex={-1}>
         <Hero />
+        <RecruiterQuickFacts />
         <ProofStrip />
         <Work />
         <Skills />
+        <ExperienceSnapshot />
         <About />
+        <FAQ />
       </main>
       <Footer />
     </div>

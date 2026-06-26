@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 const NAV_LINKS = [
   { label: 'Work', href: '#work' },
   { label: 'Skills', href: '#skills' },
+  { label: 'Experience', href: '#experience' },
   { label: 'About', href: '#about' },
   { label: 'Contact', href: '#contact' },
 ]
@@ -15,12 +16,19 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const lastY = useRef(0)
+  const headerRef = useRef<HTMLElement>(null)
+  const hamburgerRef = useRef<HTMLButtonElement>(null)
+  const prevMenuOpen = useRef(false)
 
+  // Scroll-hide logic — skips hiding if keyboard focus is inside the nav
   useEffect(() => {
     const handler = () => {
       const y = window.scrollY
       setScrolled(y > 60)
-      if (y > lastY.current && y > 120) {
+      const focusInNav =
+        headerRef.current?.contains(document.activeElement) ||
+        document.getElementById('mobile-nav')?.contains(document.activeElement)
+      if (y > lastY.current && y > 120 && !focusInNav) {
         setHidden(true)
       } else {
         setHidden(false)
@@ -37,6 +45,14 @@ export default function Nav() {
     return () => { document.body.style.overflow = '' }
   }, [menuOpen])
 
+  // Return focus to hamburger when menu closes
+  useEffect(() => {
+    if (prevMenuOpen.current && !menuOpen) {
+      hamburgerRef.current?.focus()
+    }
+    prevMenuOpen.current = menuOpen
+  }, [menuOpen])
+
   // Close mobile menu on Escape key
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => { if (e.key === 'Escape') setMenuOpen(false) }
@@ -44,9 +60,45 @@ export default function Nav() {
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [])
 
+  // Focus trap when mobile menu is open
+  useEffect(() => {
+    if (!menuOpen) return
+    const menuEl = document.getElementById('mobile-nav')
+    if (!menuEl) return
+
+    const focusableSelectors =
+      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    const getFocusable = () =>
+      Array.from(menuEl.querySelectorAll<HTMLElement>(focusableSelectors))
+
+    const handleTab = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return
+      const focusable = getFocusable()
+      if (!focusable.length) return
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault()
+          last.focus()
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault()
+          first.focus()
+        }
+      }
+    }
+
+    document.addEventListener('keydown', handleTab)
+    getFocusable()[0]?.focus()
+    return () => document.removeEventListener('keydown', handleTab)
+  }, [menuOpen])
+
   return (
     <>
       <motion.header
+        ref={headerRef}
         className={[
           'fixed top-0 left-0 right-0 z-50 transition-colors duration-300',
           scrolled
@@ -92,6 +144,7 @@ export default function Nav() {
 
             {/* Hamburger */}
             <button
+              ref={hamburgerRef}
               onClick={() => setMenuOpen((v) => !v)}
               className="md:hidden relative w-8 h-8 flex flex-col justify-center items-center gap-[5px]"
               aria-label={menuOpen ? 'Close menu' : 'Open menu'}
@@ -166,11 +219,11 @@ export default function Nav() {
               </a>
               <a
                 href="/resume.pdf"
-                download
+                download="Giga-Songulashvili-Senior-Software-Engineer-Resume.pdf"
                 onClick={() => setMenuOpen(false)}
                 className="flex justify-center items-center py-4 border border-white/10 text-[#ccc] text-lg font-medium rounded-2xl"
               >
-                Download Resume
+                Download Resume PDF
               </a>
             </motion.div>
           </motion.div>

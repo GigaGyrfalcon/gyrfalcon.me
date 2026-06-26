@@ -1,41 +1,6 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-
-const CASE_STUDIES = [
-  {
-    company: 'Tactable',
-    period: '2023 – 2025',
-    context: 'Boutique cloud, data, and AI engineering firm serving enterprise clients.',
-    title: 'Rakuten × Shopify Integration',
-    ownership:
-      "Developed and maintained Shopify app features enabling US merchants to list and manage products on Rakuten Ichiba (Japan\u2019s largest marketplace) through unified Shopify workflows.",
-    tech: ['React', 'Node.js', 'TypeScript', 'GraphQL', 'PostgreSQL', 'Shopify API'],
-    outcome:
-      'Led API migration to newer Shopify API versions with zero downtime; upgraded auth from cookie-based to token-based sessions.',
-  },
-  {
-    company: 'Natelly',
-    period: '2025 – Present',
-    context: 'Social good startup leveraging mobile technology for community engagement.',
-    title: 'Cross-Platform Mobile App',
-    ownership:
-      'Architected and built the entire product from zero to production — mobile app, admin panel, backend workflows, and cloud infrastructure.',
-    tech: ['React Native', 'Expo', 'Supabase', 'PostgreSQL', 'AWS S3', 'CloudFront', 'Jotai'],
-    outcome:
-      'Delivered real-time social features, scalable media pipeline (S3 + CloudFront), push notifications, and automated backend workflows — end-to-end solo.',
-  },
-  {
-    company: 'Briza Insurance',
-    period: '2021 – 2022',
-    context: 'SaaS startup connecting insurance carriers to brokerages via API.',
-    title: 'Web Components Library',
-    ownership:
-      'Built a framework-agnostic Web Components library and internal carrier integration tooling used across React, Vue, and vanilla JS environments.',
-    tech: ['StencilJS', 'React', 'Vue', 'Node.js', 'PostgreSQL', 'Jest', 'Cypress'],
-    outcome:
-      'Enabled consistent broker experiences across multiple frontend frameworks from a single shared component library.',
-  },
-]
+import { CASE_STUDIES, LINKS } from '../content/profile'
 
 type CaseStudy = typeof CASE_STUDIES[number]
 
@@ -50,37 +15,46 @@ function CaseStudyCard({ study, index }: { study: CaseStudy; index: number }) {
       initial={{ opacity: 0, y: 44 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.65, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-      whileHover={{ y: -5, transition: { duration: 0.25 } }}
     >
       {/* Top gradient accent on hover */}
       <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
       {/* Header row */}
-      <div className="flex items-start justify-between mb-4">
+      <div className="flex items-start justify-between mb-2">
         <div>
           <span className="text-[11px] font-bold text-blue-400 tracking-[0.18em] uppercase">
             {study.company}
           </span>
           <p className="text-xs text-[#aaa] mt-0.5">{study.period}</p>
         </div>
-        <span className="text-xs text-[#888] border border-white/[0.07] px-2 py-1 rounded-full">
-          {study.tech.length} tech
+        <span className="text-xs text-[#666] border border-white/[0.07] px-2 py-1 rounded-full whitespace-nowrap">
+          {study.role}
         </span>
       </div>
 
       {/* Title */}
-      <h3 className="text-[1.15rem] font-semibold text-[#f0f0f0] leading-snug mb-3">
+      <h3 className="text-[1.1rem] font-semibold text-[#f0f0f0] leading-snug mb-5">
         {study.title}
       </h3>
 
-      {/* Context */}
-      <p className="text-xs text-[#aaa] mb-4">{study.context}</p>
-
-      {/* Ownership */}
-      <p className="text-sm text-[#aaa] leading-relaxed mb-6 flex-1">{study.ownership}</p>
+      {/* Structured details */}
+      <div className="space-y-3 mb-5 flex-1">
+        <div>
+          <p className="text-[10px] font-bold text-[#555] tracking-[0.18em] uppercase mb-1">Problem</p>
+          <p className="text-sm text-[#aaa] leading-relaxed">{study.problem}</p>
+        </div>
+        <div>
+          <p className="text-[10px] font-bold text-[#555] tracking-[0.18em] uppercase mb-1">What I owned</p>
+          <p className="text-sm text-[#aaa] leading-relaxed">{study.ownership}</p>
+        </div>
+        <div>
+          <p className="text-[10px] font-bold text-[#555] tracking-[0.18em] uppercase mb-1">Outcome</p>
+          <p className="text-sm text-[#ccc] leading-relaxed">{study.outcome}</p>
+        </div>
+      </div>
 
       {/* Tech pills */}
-      <div className="flex flex-wrap gap-1.5 mb-6">
+      <div className="flex flex-wrap gap-1.5 mb-5">
         {study.tech.map((t) => (
           <span
             key={t}
@@ -91,10 +65,10 @@ function CaseStudyCard({ study, index }: { study: CaseStudy; index: number }) {
         ))}
       </div>
 
-      {/* Outcome */}
+      {/* Why it matters */}
       <div className="flex items-start gap-3 pt-4 border-t border-white/[0.06]">
         <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0" />
-        <p className="text-sm text-[#ccc] leading-relaxed">{study.outcome}</p>
+        <p className="text-xs text-[#777] leading-relaxed italic">{study.whyItMatters}</p>
       </div>
     </motion.article>
   )
@@ -132,7 +106,28 @@ export default function Work() {
             <CaseStudyCard key={study.company} study={study} index={i} />
           ))}
         </div>
+
+        {/* CTA */}
+        <motion.div
+          className="mt-12 text-center"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          <a
+            href={LINKS.resume}
+            download={LINKS.resumeDownloadName}
+            className="inline-flex items-center gap-2 text-sm text-[#666] hover:text-blue-400 transition-colors border border-white/[0.06] hover:border-blue-500/20 px-5 py-2.5 rounded-xl"
+          >
+            Download Resume PDF for full experience
+            <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+              <path d="M12 16l-4-4m4 4l4-4m-4 4V4M4 20h16" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </a>
+        </motion.div>
       </div>
     </section>
   )
 }
+
