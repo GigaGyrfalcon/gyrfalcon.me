@@ -90,7 +90,7 @@ export default function Hero() {
 
             {/* Animated headline */}
             <motion.h1
-              className="text-[clamp(2.1rem,5.2vw,4.8rem)] font-bold leading-[1.07] tracking-tight text-[#f0f0f0] mb-6"
+              className="text-[clamp(1.9rem,3.5vw,3.5rem)] font-bold leading-[1.1] tracking-tight text-[#f0f0f0] mb-6"
               variants={wordVariants}
               initial="hidden"
               animate="visible"
