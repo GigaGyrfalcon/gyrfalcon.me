@@ -35,7 +35,7 @@ export default function Hero() {
     offset: ['start start', 'end start'],
   })
   const yParallax = useTransform(scrollYProgress, [0, 1], ['0%', '18%'])
-  const opacityFade = useTransform(scrollYProgress, [0, 0.75], [1, 0])
+  const opacityFade = useTransform(scrollYProgress, [0.7, 1.0], [1, 0])
 
   return (
     <section
